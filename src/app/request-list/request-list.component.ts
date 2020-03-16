@@ -35,7 +35,7 @@ export class RequestListComponent implements OnInit, AfterViewInit {
         return faPlane;
       case 'Commercial':
         return faCity;
-      case 'DataCenters':
+      case 'DataCenter':
         return faDatabase;
       case 'Education':
         return faSchool;

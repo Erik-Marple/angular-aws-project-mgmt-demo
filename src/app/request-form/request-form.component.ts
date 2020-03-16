@@ -36,7 +36,7 @@ export class RequestFormComponent implements OnInit {
     { label: 'Education', value: 'Education' },
     { label: 'Healthcare', value: 'Healthcare' },
     { label: 'Interiors', value: 'Interiors' },
-    { label: 'Specialty', value: 'Specialty' },
+    { label: 'Specialty', value: 'Specialty' }
   ];
 
   changeTypes: IChoiceItem[] = [
