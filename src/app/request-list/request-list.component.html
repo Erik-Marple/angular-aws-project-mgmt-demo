@@ -1,0 +1,42 @@
+<div class="mat-elevation-z8">
+    <div class="loading-shade"
+         *ngIf="isLoading">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </div>
+
+    <div class="example-table-container">
+        <table mat-table [dataSource]="data" class="example-table"
+            matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+            
+        <ng-container matColumnDef="projectName">
+            <th mat-header-cell *matHeaderCellDef>Project Name</th>
+            <td mat-cell *matCellDef="let row">
+                <a [routerLink]="['/edit-request', row.requestId]">
+                    {{row.projectName}}
+                </a>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="requestDate">
+            <th mat-header-cell *matHeaderCellDef>Request Date</th>
+            <td mat-cell *matCellDef="let row">{{row.requestDate | date}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="requestedBy">
+            <th mat-header-cell *matHeaderCellDef>Requested By</th>
+            <td mat-cell *matCellDef="let row">{{row.requestedBy}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="practice">
+            <th mat-header-cell *matHeaderCellDef>Type / Practice</th>
+            <td mat-cell *matCellDef="let row">
+                <fa-icon [icon]="typeIcon(row.changeType)" [title]="row.changeType"></fa-icon>&nbsp;
+                <fa-icon [icon]="practiceIcon(row.practice)" [title]="row.practice"></fa-icon>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,106 @@
+<div class="grid-container">
+  <div class="loading-shade"
+        *ngIf="isSaving">
+    <mat-spinner *ngIf="isSaving"></mat-spinner>
+  </div>
+    <mat-card>
+      <form [formGroup]="requestForm" novalidate (ngSubmit)="onSubmit()">
+      <mat-card-header>
+        <mat-card-title>
+          <fa-icon [icon]="faFileContract"></fa-icon>
+          &nbsp;{{requestId ? 'Edit ' : 'Add a '}}Change Request
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row" *ngIf="requestId">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>Request ID</mat-label>
+              <input matInput formControlName="requestId" readonly>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>Project Name</mat-label>
+              <input matInput placeholder="Project Name" formControlName="projectName">
+              <mat-error *ngIf="requestForm.controls['projectName'].hasError('required')">
+                Project Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>Requested By</mat-label>
+              <input matInput placeholder="Requested By" formControlName="requestedBy">
+              <mat-error *ngIf="requestForm.controls['requestedBy'].hasError('required')">
+                Requested By is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">        
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>Request Date</mat-label>
+              <input matInput [matDatepicker]="requestPicker" formControlName="requestDate">
+              <mat-datepicker-toggle matSuffix [for]="requestPicker"></mat-datepicker-toggle>
+              <mat-datepicker #requestPicker></mat-datepicker>
+              <mat-error *ngIf="requestForm.controls['requestDate'].hasError('required')">
+                Request Date is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">            
+              <mat-label>Practice</mat-label>
+              <mat-select formControlName="practice">
+                <mat-option *ngFor="let practice of practices" [value]="practice.value">
+                  {{practice.label}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="requestForm.controls['practice'].hasError('practice')">
+                Practice is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">            
+              <mat-label>Description</mat-label>
+              <textarea matInput placeholder="Description" formControlName="description"></textarea>              
+              <mat-error *ngIf="requestForm.controls['description'].hasError('description')">
+                Description is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>        
+        <div class="row">
+          <div class="col">
+            <fieldset>
+              <legend>Change Type</legend>
+              <mat-error *ngIf="requestForm.controls['changeType'].hasError('required')">
+                Change Type is <strong>required</strong>
+              </mat-error>
+              <mat-radio-group formControlName="changeType">
+                <mat-radio-button *ngFor="let type of changeTypes" [value]="type.value">{{type.label}}</mat-radio-button>
+              </mat-radio-group>
+            </fieldset>
+          </div>
+        </div>  
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!requestForm.valid || isSaving">
+          {{requestId ? 'Save' : 'Submit'}}
+        </button>
+        <button mat-raised-button color="secondary" type="button" (click)="cancel()">Cancel</button>
+      </mat-card-actions>
+    </form>
+    </mat-card>
+</div>  

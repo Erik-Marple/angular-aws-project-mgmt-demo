@@ -1,0 +1,45 @@
+<div class="grid-container">
+  <h2 class="mat-h2">
+    <fa-icon [icon]="faChartBar"></fa-icon>
+    &nbsp;Change Request Dashboard
+  </h2>
+  <h3 class="mat-h3">
+    Angular / AWS Serverless Demo
+  </h3>
+  <mat-grid-list cols="2" rowHeight="350px">
+    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+      <mat-card class="dashboard-card">        
+
+        <mat-card-header>
+          <mat-card-title>
+            <h4 class="mat-h4">{{card.title}}</h4>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+
+          <mat-accordion>
+            <mat-expansion-panel *ngFor="let item of card.items">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <fa-icon [icon]="item.icon"></fa-icon>
+                  &nbsp;{{item.title}}
+                </mat-panel-title>
+                <mat-panel-description>                  
+                  {{item.description}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div>
+                <a *ngIf="item.url" [href]="item.url" target="_blank">{{item.details}}</a>
+                <div *ngIf="!item.url">
+                  {{item.details}}
+                </div>
+              </div>              
+            </mat-expansion-panel>
+          </mat-accordion>
+
+        </mat-card-content>
+
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
